@@ -9,6 +9,20 @@ about-me: lol
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Blog</title>
+    <style>
+        /* ... existing CSS ... */
+
+        /* Style for post links */
+        .post-link {
+            color: #020408; /* Set the text color to black */
+            text-decoration: none; /* Remove underline */
+            font-weight: 500;
+        }
+
+        .post-link:hover {
+            text-decoration: underline; /* Add underline when hovering */
+        }
+    </style>
 </head>
 <body>
     <header>
@@ -23,7 +37,7 @@ about-me: lol
           {% for post in site.posts %}
               <li>
                   <span class="post-date">{{ post.date | date: "%B %d, %Y" }}</span> - 
-                  <a href="{{ post.url }}">{{ post.title }}</a>
+                  <a href="{{ post.url }}" class="post-link">{{ post.title }}</a>
               </li>
           {% endfor %}
         </ul>

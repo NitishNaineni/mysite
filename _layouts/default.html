@@ -6,26 +6,21 @@
     <title>{{ page.title }}</title>
     <style>
         body {
-            line-height: 1.4;
-            color: #333;
-            background-color: #EEEEEE ;
-            font-size: 16px;
+            line-height: 1.5;
+            color: #020409;
+            background-color: #ffffff ;
+            font-size: 14px;
             max-width: 800px;
             margin: 0 auto;
             padding: 1em;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
+            word-wrap: break-word;
         }
 
-        a {
-            color: #0000EE ; /* Dark gray links */
+        html {
+            overflow-y: scroll;
         }
 
-        a:visited {
-            color: #551A8B ; /* Lighter gray for visited links */
-        }
-
-        a:active {
-            color: #EE0000; /* Active link color (red) */
-        }
 
 
        
@@ -38,8 +33,9 @@
             font-size: 14px;
             padding: 10px;
             overflow-x: auto;
-            border: 1px solid #a5a5a5;
-            border-radius: 6px;
+            border: 1px solid #21252b;
+            border-radius: 4px;
+            background-color: #e8ecf0;
         }
 
         pre::-webkit-scrollbar {
@@ -65,11 +61,12 @@
         }
 
         code{
-            font-size: 14px;
-            padding-left: 3px;
-            padding-right: 3px;
-            border: 1px solid #a5a5a5;
-            border-radius: 4px;
+            background-color: #e8ecf0;
+            padding: .2em .4em;
+            margin: 0;
+            font-size: 85%;
+            white-space: break-spaces;
+            border-radius: 6px;
         }
 
         pre code {
@@ -97,9 +94,18 @@
             font-weight: bold;
         }
 
-        .header-link {
+        .nav-link {
+            color: #020408; /* Set the text color to black */
+            text-decoration: none; /* Remove underline */
+            padding: 3px 10px; /* Add padding to center the text */
+            border-radius: 5px; /* Add border-radius to round the corners */
+            display: inline-block; /* Make the link an inline-block element to apply padding and border-radius */
             font-size: 1.2em;
-            padding-right: 1.2em;
+            font-weight: 500;
+        }
+
+        .nav-link:hover {
+            background-color: #e8ecf0; /* Set the background color to #e8ecf0 when hovering */
         }
 
         .video-container {
@@ -124,14 +130,23 @@
     <div class="header">
         <div class="header-name">Nitish Naineni</div>
         <div class="header-links">
-            <a class="header-link" href="/root/">Home</a>
-            <a class="header-link" href="/root/resume">Resume</a>
+            <a href="/root/" class="nav-link">Home</a>
+            <a href="/root/resume" class="nav-link">Resume</a>
         </div>
     </div>
     <hr>
     {{ content }}
     <footer>
+        <!-- ... existing footer content ... -->
         <hr>
+        <p>
+            This site was made with 
+            <a href="https://jekyllrb.com/" target="_blank" rel="noopener noreferrer">Jekyll</a> and 
+            <a href="https://giscus.app/" target="_blank" rel="noopener noreferrer">Giscus</a>. 
+            View the 
+            <a href="https://github.com/NitishNaineni/nitishnaineni.com" target="_blank" rel="noopener noreferrer">source code</a> 
+            on GitHub.
+        </p>
         <p>&copy; {{ 'now' | date: "%Y" }} Nitish Naineni. All rights reserved.</p>
     </footer>
 </body>
