@@ -75,7 +75,8 @@
             background-color: #020409;
             border: 1px solid #31363c;
             border-radius: 6px;
-            padding: 10px;
+            display: flex;
+            align-items: center;
         }
 
         footer{
@@ -88,7 +89,7 @@
         .nav-link {
             color: #e7edf2;
             text-decoration: none;
-            padding: 3px 10px;
+            padding: 10px;
             border-radius: 3px; 
             display: inline-block; 
             font-weight: 500;
@@ -110,6 +111,19 @@
             height: 100%;
         }
 
+        .icon {
+            border-radius: 4px; 
+            height: 1.5em;
+            vertical-align:text-bottom;
+            padding: 0em 0.2em;
+        }
+
+        .social{
+            margin-left: auto;
+            padding-right: 10px;
+
+        }
+
     </style>
     <link rel="stylesheet" href="/css/syntax.css" type="text/css" />
 </head>
@@ -117,6 +131,15 @@
     <div class="header">
         <a href="/" class="nav-link">Home</a> 
         <a href="/resume" class="nav-link">Resume</a>
+        <div class="social">
+            <a href="https://github.com/NitishNaineni">
+                <img src="/assets/github.svg" alt="GitHub" class= "icon">
+            </a>
+            <a href="/feed.xml">
+                <img src="/assets/rss.svg" alt="RSS" class= "icon">
+            </a>
+        </div>
+        
     </div>
     {{ content }}
     <footer>
