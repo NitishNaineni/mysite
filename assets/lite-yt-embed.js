@@ -7,7 +7,7 @@ class LiteYTEmbed extends HTMLElement {
 
         this.dataset.title = this.getAttribute('title') || "";
         if (!this.style.backgroundImage) {
-          this.style.backgroundImage = `url("https://i.ytimg.com/vi/${this.videoId}/hqdefault.jpg")`;
+          this.style.backgroundImage = `url("https://i.ytimg.com/vi_webp/${this.videoId}/hqdefault.webp")`;
           this.upgradePosterImage();
         }
 
