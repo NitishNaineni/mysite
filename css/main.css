@@ -6,7 +6,6 @@
     --code-background-color: #353940;
     --header-footer-background-color: #020409;
 }
-
 body {
     line-height: 1.5;
     color: var(--main-color);
@@ -18,56 +17,46 @@ body {
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji";
     word-wrap: break-word;
 }
-
 html {
     overflow-y: scroll;
 }
-
 hr {
     display: block;
     border: 0;
     border-top: 1px solid;
     border-color: var(--border-color);
 }
-
 a {
     text-decoration: none;
     color: var(--link-color);
 }
-
 a:hover {
     text-decoration: underline;
 }
-
 h1, h2, h3, h4, h5, h6 {
     line-height: 1.2;
     font-weight: 500;
 }
-
 h2 {
     padding-bottom: 10px;
     border-bottom: 1px solid var(--border-color);
 }
-
 pre {
     padding: 10px;
     overflow-x: auto;
     scrollbar-width: thin;
     scrollbar-color: #888 transparent;
 }
-
 code {
     background-color: var(--code-background-color);
     padding: .2em .4em;
     font-size: 85%;
     border-radius: 4px;
 }
-
 pre code {
     background-color: transparent;
     padding: 0;
 }
-
 .header, footer {
     justify-content: space-between;
     align-items: center;
@@ -77,7 +66,6 @@ pre code {
     display: flex;
     align-items: center;
 }
-
 .nav-link {
     color: var(--main-color);
     text-decoration: none;
@@ -86,7 +74,6 @@ pre code {
     display: inline-block; 
     font-weight: 500;
 }
-
 .video-container {
     position: relative;
     width: 100%;
@@ -94,7 +81,6 @@ pre code {
     height: 0;
     overflow: hidden;
 }
-
 .video-container iframe {
     position: absolute;
     top: 0;
@@ -102,7 +88,6 @@ pre code {
     width: 100%;
     height: 100%;
 }
-
 .icon {
     border-radius: 4px; 
     height: 1.5em;
@@ -110,12 +95,10 @@ pre code {
     vertical-align:text-bottom;
     padding: 0em 0.2em;
 }
-
 .social {
     margin-left: auto;
     padding-right: 10px;
 }
-
 .footer-content {
     display: flex;
     justify-content: space-between;
@@ -123,11 +106,41 @@ pre code {
     flex-wrap: wrap;
     padding: 0 1em;
 }
-
 .footer-content p {
-    line-height: 1.0; /* Adjust this value to reduce the space between the lines */
+    line-height: 1.0;
 }
-
+.youtube-facade {
+    position: relative;
+    width: 100%;
+    padding-bottom: 56.25%;
+    overflow: hidden;
+}
+.youtube-facade img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+}
+.youtube-facade::before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background: url('/assets/youtube.svg') no-repeat center;
+    width: 50px; 
+    height: 50px; 
+    cursor: pointer;
+    z-index: 2; 
+}
+.youtube-facade.playing {
+    padding-bottom: 3vh; /* 3% of the viewport's height */
+}
+.youtube-facade.playing::before {
+    display: none;
+}
 @media screen and (max-width: 600px) {
     body {
         padding: 0.5em;
