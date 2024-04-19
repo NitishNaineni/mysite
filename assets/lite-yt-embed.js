@@ -1,15 +1,17 @@
 class LiteYTEmbed extends HTMLElement {
     connectedCallback() {
         this.videoId = this.getAttribute('videoid');
+        this.dataset.title = this.getAttribute('title') || "";
+        const posterUrl = `https://i.ytimg.com/vi/${this.videoId}/hqdefault.jpg`;
+
+        if (!this.style.backgroundImage) {
+            this.style.backgroundImage = `url("${posterUrl}")`;
+            this.preloadImage(posterUrl);
+            this.upgradePosterImage();
+        }
 
         let playBtnEl = this.querySelector('.lty-playbtn');
         this.playLabel = (playBtnEl && playBtnEl.textContent.trim()) || this.getAttribute('playlabel') || 'Play';
-
-        this.dataset.title = this.getAttribute('title') || "";
-        if (!this.style.backgroundImage) {
-          this.style.backgroundImage = `url("https://i.ytimg.com/vi/${this.videoId}/hqdefault.jpg")`;
-          this.upgradePosterImage();
-        }
 
         if (!playBtnEl) {
             playBtnEl = document.createElement('button');
@@ -25,12 +27,18 @@ class LiteYTEmbed extends HTMLElement {
         }
 
         this.addNoscriptIframe();
-
         playBtnEl.removeAttribute('href');
-
         this.addEventListener('pointerover', LiteYTEmbed.warmConnections, {once: true});
         this.addEventListener('click', this.activate);
         this.needsYTApi = this.hasAttribute("js-api") || navigator.vendor.includes('Apple') || navigator.userAgent.includes('Mobi');
+    }
+
+    preloadImage(url) {
+        const link = document.createElement('link');
+        link.rel = 'preload';
+        link.href = url;
+        link.as = 'image';
+        document.head.appendChild(link);
     }
 
     static addPrefetch(kind, url, as) {
@@ -45,7 +53,6 @@ class LiteYTEmbed extends HTMLElement {
 
     static warmConnections() {
         if (LiteYTEmbed.preconnected) return;
-
         LiteYTEmbed.addPrefetch('preconnect', 'https://www.youtube-nocookie.com');
         LiteYTEmbed.addPrefetch('preconnect', 'https://www.google.com');
         LiteYTEmbed.addPrefetch('preconnect', 'https://googleads.g.doubleclick.net');
@@ -55,14 +62,11 @@ class LiteYTEmbed extends HTMLElement {
 
     fetchYTPlayerApi() {
         if (window.YT || (window.YT && window.YT.Player)) return;
-
         this.ytApiPromise = new Promise((res, rej) => {
             var el = document.createElement('script');
             el.src = 'https://www.youtube.com/iframe_api';
             el.async = true;
-            el.onload = _ => {
-                YT.ready(res);
-            };
+            el.onload = _ => YT.ready(res);
             el.onerror = rej;
             this.append(el);
         });
@@ -72,19 +76,15 @@ class LiteYTEmbed extends HTMLElement {
         if(!this.playerPromise) {
             await this.activate();
         }
-
         return this.playerPromise;
     }
 
     async addYTPlayerIframe() {
         this.fetchYTPlayerApi();
         await this.ytApiPromise;
-
         const videoPlaceholderEl = document.createElement('div')
         this.append(videoPlaceholderEl);
-
         const paramsObj = Object.fromEntries(this.getParams().entries());
-
         this.playerPromise = new Promise(resolve => {
             let player = new YT.Player(videoPlaceholderEl, {
                 width: '100%',
@@ -117,18 +117,15 @@ class LiteYTEmbed extends HTMLElement {
     async activate(){
         if (this.classList.contains('lyt-activated')) return;
         this.classList.add('lyt-activated');
-
         if (this.needsYTApi) {
             return this.addYTPlayerIframe(this.getParams());
         }
-
         const iframeEl = this.createBasicIframe();
         this.append(iframeEl);
-
         iframeEl.focus();
     }
 
-    createBasicIframe(){
+    createBasicIframe() {
         const iframeEl = document.createElement('iframe');
         iframeEl.width = 560;
         iframeEl.height = 315;
@@ -149,10 +146,10 @@ class LiteYTEmbed extends HTMLElement {
             img.onload = e => {
                 const noAvailablePoster = e.target.naturalHeight == 90 && e.target.naturalWidth == 120;
                 if (noAvailablePoster) return;
-
                 this.style.backgroundImage = `url("${webpUrl}")`;
             }
         }, 100);
     }
 }
+
 customElements.define('lite-youtube', LiteYTEmbed);
